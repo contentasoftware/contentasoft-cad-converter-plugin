@@ -1,0 +1,23 @@
+{
+  "name": "contentasoft-cad-converter",
+  "displayName": "3D CAD Converter",
+  "version": "1.0.0",
+  "description": "3D CAD Converter on your Windows PC from Claude: converting STEP, IGES, STL, OBJ, FBX, glTF, 3MF and other 3D/CAD files. Runs locally on your files.",
+  "author": {
+    "name": "ContentaSoft AB",
+    "url": "https://www.contenta-software.com/"
+  },
+  "homepage": "https://www.contenta-software.com/3dcadconverter/",
+  "repository": "https://github.com/ContentaSoft/contentasoft-cad-converter-plugin",
+  "license": "MIT",
+  "keywords": [
+    "windows",
+    "batch",
+    "mcp",
+    "converting",
+    "STEP",
+    "IGES",
+    "glTF",
+    "other"
+  ]
+}

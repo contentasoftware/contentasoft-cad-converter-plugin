@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "cad-converter": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@contentasoft/cad-converter-mcp@1.0.0"
+      ]
+    }
+  }
+}
