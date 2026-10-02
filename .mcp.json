@@ -1,12 +1,9 @@
 {
   "mcpServers": {
     "cad-converter": {
-      "command": "cmd",
+      "command": "node",
       "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@contentasoft/cad-converter-mcp@1.0.0"
+        "${CLAUDE_PLUGIN_ROOT}/server/index.js"
       ]
     }
   }

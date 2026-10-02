@@ -1,0 +1,40 @@
+{
+  "name": "@contentasoft/cad-converter-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for 3D CAD Converter — Convert STEP, IGES, STL, OBJ, FBX, glTF and 3MF files on your Windows PC, one file or a folder",
+  "mcpName": "com.contenta-software/cad-converter",
+  "bin": {
+    "cad-converter-mcp": "index.js"
+  },
+  "files": [
+    "index.js",
+    "app.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "author": "ContentaSoft AB",
+  "homepage": "https://www.contenta-software.com/3dcadconverter/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentasoftware/mcp-launcher.git",
+    "directory": "packages/cad-converter-mcp"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "windows",
+    "converting",
+    "STEP",
+    "IGES",
+    "glTF",
+    "other",
+    "files"
+  ]
+}

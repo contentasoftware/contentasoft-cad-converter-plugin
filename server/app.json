@@ -1,0 +1,23 @@
+{
+  "key": "cad",
+  "package": "@contentasoft/cad-converter-mcp",
+  "bin": "cad-converter-mcp",
+  "registryName": "com.contenta-software/cad-converter",
+  "serverName": "cad-converter",
+  "product": "3D CAD Converter",
+  "summary": "converting STEP, IGES, STL, OBJ, FBX, glTF, 3MF and other 3D/CAD files",
+  "registryDescription": "Convert STEP, IGES, STL, OBJ, FBX, glTF and 3MF files on your Windows PC, one file or a folder",
+  "exe": "cadconvert.exe",
+  "installFolder": "CadConverter",
+  "overrideEnv": "CONTENTASOFT_CAD_EXE",
+  "websiteUrl": "https://www.contenta-software.com/3dcadconverter/",
+  "downloadUrl": "https://www.contenta-software.com/3dcadconverter/download.php",
+  "privacyUrl": "https://www.contenta-software.com/3dcadconverter/privacy.php",
+  "networkNote": "",
+  "tools": [
+    "convert_cad",
+    "detect_format",
+    "get_file_info",
+    "list_formats"
+  ]
+}

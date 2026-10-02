@@ -1,7 +1,7 @@
 ---
 name: contenta-cad
 description: Convert 3D CAD and mesh files with the 3D CAD Converter CLI (cadconvert). Use when the user asks to convert STEP, IGES or BREP to STL, OBJ, 3MF, glTF/GLB, FBX, PLY or other formats, convert between mesh formats (including USD/USDZ and VRML input), change units, control mesh quality for 3D printing, reduce the polygon count of a mesh, set the up axis for game engines, inspect a 3D file, or batch-convert or watch a folder of CAD files.
-allowed-tools: Bash
+allowed-tools: Bash(cadconvert:*)
 ---
 
 # 3D CAD Converter
