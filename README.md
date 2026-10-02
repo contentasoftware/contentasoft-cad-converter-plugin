@@ -8,7 +8,7 @@ your computer; nothing is uploaded to Anthropic or to ContentaSoft to do the wor
 - Windows 10 or 11 with **3D CAD Converter** installed. It has a free trial: https://www.contenta-software.com/3dcadconverter/download.php
   (if it is not installed yet, the plugin's `get_started` tool gives Claude the download link and the steps).
 - Node.js, which runs the small launcher package `@contentasoft/cad-converter-mcp` (MIT, source:
-  https://github.com/ContentaSoft/mcp-launcher). The launcher starts the app's own MCP server
+  https://github.com/contentasoftware/mcp-launcher). The launcher starts the app's own MCP server
   (`cadconvert serve`) and passes its messages through; it sends nothing over the network itself.
 - Claude Code or Cowork on that computer. Chat on claude.ai cannot start local programs, so it does not load
   this plugin's tools.
