@@ -65,7 +65,7 @@ BREP input means OpenCascade `.brep`/`.brp` only (not Parasolid `.x_t` or ACIS `
 
 ## Examples (verified on 1.0.27, except the USD and USDZ lines)
 
-```powershell
+```bash
 cadconvert convert model.step model.stl
 cadconvert convert model.step -f glb
 cadconvert convert model.step -o model_fine.stl --quality fine
@@ -82,11 +82,11 @@ cadconvert convert -i model.stl -o model_ascii.stl --binary false
 cadconvert convert part.brep part.step
 cadconvert convert room.wrl room.stl                 # VRML is read in metres: a 1 m cube is 1000 mm
 cadconvert convert model.step model.wrl
-cadconvert batch -i .\cad-files -o .\meshes -f obj --quality fine
-cadconvert batch .\cad-files
+cadconvert batch -i ./cad-files -o ./meshes -f obj --quality fine
+cadconvert batch ./cad-files
 cadconvert info model.step
 cadconvert info scene.usdz
-cadconvert watch .\incoming -f glb --up-axis y
+cadconvert watch ./incoming -f glb --up-axis y
 ```
 
 ## Exit codes

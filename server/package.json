@@ -1,6 +1,6 @@
 {
   "name": "@contentasoft/cad-converter-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for 3D CAD Converter — Convert STEP, IGES, STL, OBJ, FBX, glTF and 3MF files on your Windows PC, one file or a folder",
   "mcpName": "com.contenta-software/cad-converter",
   "bin": {

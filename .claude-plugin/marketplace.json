@@ -1,0 +1,26 @@
+{
+  "name": "contentasoft-cad-converter-plugin",
+  "owner": {
+    "name": "ContentaSoft AB",
+    "url": "https://www.contenta-software.com/"
+  },
+  "description": "3D CAD Converter for AI agents on Windows: converting STEP, IGES, STL, OBJ, FBX, glTF, 3MF and other 3D/CAD files.",
+  "plugins": [
+    {
+      "name": "contentasoft-cad-converter",
+      "source": "./",
+      "description": "3D CAD Converter on your Windows PC from your AI agent: converting STEP, IGES, STL, OBJ, FBX, glTF, 3MF and other 3D/CAD files. Runs locally on your files.",
+      "version": "1.0.1",
+      "tags": [
+        "windows",
+        "batch",
+        "mcp",
+        "converting",
+        "STEP",
+        "IGES",
+        "glTF",
+        "other"
+      ]
+    }
+  ]
+}
