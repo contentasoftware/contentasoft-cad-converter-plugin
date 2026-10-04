@@ -1,7 +1,7 @@
 {
   "name": "contentasoft-cad-converter",
   "displayName": "3D CAD Converter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "3D CAD Converter on your Windows PC from your AI agent: converting STEP, IGES, STL, OBJ, FBX, glTF, 3MF and other 3D/CAD files. Runs locally on your files.",
   "author": {
     "name": "ContentaSoft AB",

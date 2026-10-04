@@ -6,9 +6,9 @@ allowed-tools: Bash(cadconvert:*)
 
 # 3D CAD Converter
 
-Use the `cadconvert` CLI (3D CAD Converter 1.0.27+, Windows). Default per-user install: `%LOCALAPPDATA%\Programs\CadConverter\cadconvert.exe`, on the user PATH. Check with `cadconvert --version` (it prints the build id after a `+`).
+Use the `cadconvert` CLI (3D CAD Converter 1.0.28+, Windows). Default per-user install: `%LOCALAPPDATA%\Programs\CadConverter\cadconvert.exe`, on the user PATH. Check with `cadconvert --version` (it prints the build id after a `+`).
 
-No `--json` flag; for structured results use the MCP server (`cadconvert serve`).
+`info`, `formats`, `convert` and `batch` take `--json` and print exactly one JSON object (the same shape as the MCP results, with `success`, and for conversions `warning`, `notes`, `trialExport`, `buyUrl`); errors under `--json` are `{"success":false,"error":"...","exitCode":N}`. When stdout is not a terminal (or with `--plain`) the text output is plain `Key: Value` lines and ASCII tables, and every number uses a `.` decimal point with no thousands separator.
 
 ## Commands
 
@@ -63,7 +63,7 @@ VRML input (1.0.27): VRML 2.0 and 1.0, read in metres and Y-up. Extrusion, line 
 
 BREP input means OpenCascade `.brep`/`.brp` only (not Parasolid `.x_t` or ACIS `.sat`). It has no unit, so it is read as mm, and it comes in as one merged solid without part names, colours or assembly tree.
 
-## Examples (verified on 1.0.27, except the USD and USDZ lines)
+## Examples (verified on 1.0.28, except the USD and USDZ lines)
 
 ```bash
 cadconvert convert model.step model.stl
@@ -100,4 +100,4 @@ cadconvert watch ./incoming -f glb --up-axis y
 - To shrink a mesh file, use `--decimate`; to shrink a mesh made from STEP/IGES, use a coarser `--quality`.
 - STL has no colors or materials; the CLI says so. Use 3MF, OBJ or GLB when color matters.
 - glTF (`.gltf`) is JSON plus side files; GLB (`.glb`) is a single binary file and is easier to share.
-- Trial: 10 conversions at full quality within 30 days of the first launch (plus 10 after the newsletter confirmation in the app). After that nothing is blocked: STEP/IGES/BREP to a mesh format is meshed at `draft` whatever `--quality` says, and every export carries a trial note (FBX gets draft only). The CLI prints `Buy:` and a link; `cadconvert register -k <key> -e <email>` removes it. In the MCP tool, paths must be absolute.
+- Trial: 10 conversions at full quality within 30 days of the first launch (plus 10 after the newsletter confirmation in the app). After that nothing is blocked: STEP/IGES/BREP to a mesh format is meshed at `draft` whatever `--quality` says, and every export carries a trial note (FBX gets draft only). The CLI prints `Buy:` and a link; `cadconvert register -k <key> -e <email>` removes it. In the MCP tool, paths must be absolute; `convert_cad` takes `tessellation` (a preset or a linear deflection in mm, e.g. `"0.001"`), `angular` (radians), `up_axis` (`y|z|unchanged`), `decimate` (`0.25` or `"25%"`, mesh sources only), `units`, `repair`, `binary`, and returns the CLI's notes in `notes` (for example that a STEP source is not reduced by `decimate`).
