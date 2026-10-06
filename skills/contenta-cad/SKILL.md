@@ -6,16 +6,16 @@ allowed-tools: Bash(cadconvert:*)
 
 # 3D CAD Converter
 
-Use the `cadconvert` CLI (3D CAD Converter 1.0.28+, Windows). Default per-user install: `%LOCALAPPDATA%\Programs\CadConverter\cadconvert.exe`, on the user PATH. Check with `cadconvert --version` (it prints the build id after a `+`).
+Use the `cadconvert` CLI (3D CAD Converter 1.0.30+, Windows). Default per-user install: `%LOCALAPPDATA%\Programs\CadConverter\cadconvert.exe`, on the user PATH. Check with `cadconvert --version` (it prints the build id after a `+`).
 
-`info`, `formats`, `convert` and `batch` take `--json` and print exactly one JSON object (the same shape as the MCP results, with `success`, and for conversions `warning`, `notes`, `trialExport`, `buyUrl`); errors under `--json` are `{"success":false,"error":"...","exitCode":N}`. When stdout is not a terminal (or with `--plain`) the text output is plain `Key: Value` lines and ASCII tables, and every number uses a `.` decimal point with no thousands separator.
+`info`, `formats`, `convert` and `batch` take `--json` and print exactly one JSON object (the same shape as the MCP results, with `success`, and for conversions `warning`, `notes`, `trialExport`, `buyUrl`); errors under `--json` are `{"success":false,"error":"...","exitCode":N}`. `batch --json` reports `"success": false` and exits 4 when any file failed (the others are still written), `"noFilesFound": true` with exit 0 for a folder with nothing to convert, `skippedFolders` for folders it could not read and `cancelled` when it was stopped. A conversion that writes several part files lists the extra ones in `additionalOutputs`; side files such as `.bin` or `.mtl` are not listed. When stdout is not a terminal (or with `--plain`) the text output is plain `Key: Value` lines and ASCII tables, and every number uses a `.` decimal point with no thousands separator.
 
 ## Commands
 
 ```bash
 cadconvert convert <input> [<output>] [-f <fmt>] [--quality P|N] [--angular RAD] [--up-axis y|z|unchanged] [--decimate R] [--units mm|cm|in|m|ft] [--repair] [--binary true|false]
 cadconvert batch <dir> [<outdir>] [-f stl] [-r] [-w N] [same conversion options]
-cadconvert watch <dir> [<outdir>] [-f stl] [same conversion options]     # runs until Ctrl+C
+cadconvert watch <dir> [<outdir>] [-f stl] [-w N] [same conversion options]     # runs until Ctrl+C
 cadconvert info <file>
 cadconvert formats
 cadconvert register -k <key> -e <email>      # exit 0 ok, 2 badly shaped key, 1 key rejected
@@ -24,7 +24,7 @@ cadconvert register -k <key> -e <email>      # exit 0 ok, 2 badly shaped key, 1 
 - Paths can be positional or given with `-i`/`-o`. `-o` can be an existing folder (the file is named after the input).
 - No output: `convert` writes next to the input with the `-f` extension (then `-f` is required); `batch` and `watch` write to `<input>_converted` next to the input folder.
 - `-f` on `convert` defaults to the output extension; `batch` and `watch` default to `stl`. A `-f` that contradicts the output extension exits 2 (leave `-f` out to take it from the extension).
-- `batch` is recursive by default; `-w` defaults to the number of logical processors.
+- `batch` is recursive by default; `-w` defaults to the number of logical processors. `watch` takes `-w` too and, by default, writes a renamed copy rather than overwriting an existing output.
 
 ## Mesh quality (STEP/IGES/BREP sources only)
 
@@ -63,7 +63,7 @@ VRML input (1.0.27): VRML 2.0 and 1.0, read in metres and Y-up. Extrusion, line 
 
 BREP input means OpenCascade `.brep`/`.brp` only (not Parasolid `.x_t` or ACIS `.sat`). It has no unit, so it is read as mm, and it comes in as one merged solid without part names, colours or assembly tree.
 
-## Examples (verified on 1.0.28, except the USD and USDZ lines)
+## Examples (verified on 1.0.30, except the USD and USDZ lines)
 
 ```bash
 cadconvert convert model.step model.stl
@@ -91,7 +91,7 @@ cadconvert watch ./incoming -f glb --up-axis y
 
 ## Exit codes
 
-0 success · 1 error (also a rejected license key) · 2 invalid arguments (also a `-f` that contradicts the output extension, an unknown extension, a file that is not a 3D format) · 3 file not found · 4 conversion failed (also `info` on a file with no readable geometry, and a `batch` with a failed file) · 5 not used (older versions: trial blocked a conversion).
+0 success · 1 error (also a rejected license key), also a cancelled `convert` or `batch` · 2 invalid arguments (also a `-f` that contradicts the output extension, an unknown extension, a file that is not a 3D format) · 3 file not found · 4 conversion failed (also `info` on a file with no readable geometry, and a `batch` with a failed file) · 5 not used (older versions: trial blocked a conversion).
 
 ## Guidelines
 

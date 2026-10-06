@@ -28,7 +28,7 @@ while ($null -ne ($line = $in.ReadLine())) {
       Reply $id ([ordered]@{
         protocolVersion = $v
         capabilities = [ordered]@{ tools = [ordered]@{ listChanged = $false } }
-        serverInfo = [ordered]@{ name = 'cad-converter'; version = '1.0.2' }
+        serverInfo = [ordered]@{ name = 'cad-converter'; version = '1.0.3' }
         instructions = '3D CAD Converter is not installed on this computer. Call get_started for what to do.'
       })
     }
