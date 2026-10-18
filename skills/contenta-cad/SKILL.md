@@ -63,6 +63,13 @@ VRML input (1.0.27): VRML 2.0 and 1.0, read in metres and Y-up. Extrusion, line 
 
 BREP input means OpenCascade `.brep`/`.brp` only (not Parasolid `.x_t` or ACIS `.sat`). It has no unit, so it is read as mm, and it comes in as one merged solid without part names, colours or assembly tree.
 
+Native CAD files do not open directly: SolidWorks (`.sldprt`, `.sldasm`), Fusion (`.f3d`), Inventor (`.ipt`, `.iam`), Creo (`.prt`), CATIA (`.CATPart`), Parasolid (`.x_t`) and ACIS (`.sat`). Ask the user to export the part or assembly as STEP from their CAD program, then convert the STEP file.
+
+## Recipes
+
+- **3D printing in a slicer (Bambu Studio, PrusaSlicer, OrcaSlicer, Cura):** convert to 3MF, which keeps the unit and colours, or to STL, which every slicer reads but which has no colour. From STEP/IGES use `--quality fine` so curves print smooth: `cadconvert convert part.step part.3mf --quality fine`. For a STEP or IGES source, run `cadconvert info` first and tell the user the size in mm, so a part in the wrong unit is caught before printing. STL, OBJ and PLY carry no unit; ask the user what unit the numbers are in.
+- **Show a model in a web browser or send it to a customer:** GLB with `--up-axis y`, one file with no side files.
+
 ## Examples (verified on 1.0.30, except the USD and USDZ lines)
 
 ```bash
