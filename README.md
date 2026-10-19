@@ -96,9 +96,9 @@ Every `cadconvert` command, option and exit code, the JSON output and every MCP 
   bytes as the npm package `@contentasoft/cad-converter-mcp`, MIT, no dependencies; source: https://github.com/contentasoftware/mcp-launcher)
   or, without Node.js, the Windows PowerShell stub `server/stub.ps1` serves one tool, `get_started`. Neither sends
   anything over the network.
-- While Claude Code uses the skill, it can run the app's own command-line tool in Bash or PowerShell without asking
-  (`allowed-tools: Bash(cadconvert *) PowerShell(cadconvert *) Bash(cadconvert.exe *) PowerShell(cadconvert.exe *)`). That permission ends when you send your next message. Other commands, and the
-  plugin's MCP tools, follow your own Claude Code permission settings.
+- While Claude Code uses the skill, it can use the plugin's MCP tools and run the app's own command-line tool in Bash or
+  PowerShell without asking (`allowed-tools: Bash(cadconvert *) PowerShell(cadconvert *) Bash(cadconvert.exe *) PowerShell(cadconvert.exe *) mcp__plugin_contentasoft-cad-converter_cad-converter`). That permission ends when you send your next message.
+  Other commands follow your own Claude Code permission settings.
 
 ## License
 
