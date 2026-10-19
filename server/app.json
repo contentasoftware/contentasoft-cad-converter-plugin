@@ -18,6 +18,7 @@
     "convert_cad",
     "detect_format",
     "get_file_info",
-    "list_formats"
+    "list_formats",
+    "get_license_status"
   ]
 }

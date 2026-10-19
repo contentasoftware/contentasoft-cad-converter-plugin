@@ -54,7 +54,7 @@ Client-by-client instructions: https://www.npmjs.com/package/@contentasoft/cad-c
 
 ## What is included
 
-- **MCP server** `cad-converter` with the tools `convert_cad`, `detect_format`, `get_file_info`, `list_formats`. Each tool
+- **MCP server** `cad-converter` with the tools `convert_cad`, `detect_format`, `get_file_info`, `list_formats`, `get_license_status`. Each tool
   says whether it only reads files, writes new files, may overwrite files, or uses the internet.
 - **Skill** `contenta-cad`: how and when the agent should use those tools and the `cadconvert` command line.
 
@@ -65,11 +65,18 @@ Client-by-client instructions: https://www.npmjs.com/package/@contentasoft/cad-c
   To convert each new file saved to a folder while you are signed in, start `watch` at logon; it runs until you sign out or close its window:
 
   ```
-  schtasks /create /tn "3D CAD Converter watch" /sc onlogon /tr "cadconvert watch D:\Parts D:\Meshes -f 3mf --quality fine"
+  schtasks /create /tn "3D CAD Converter watch" /sc onlogon /tr "cadconvert watch D:\Parts -o D:\Meshes --format 3mf --quality fine"
   ```
-- `info`, `formats`, `convert` and `batch` take `--json` and print exactly one object, with `success` and, when there is something to report, `warning` and `notes`. An error is `{"success":false,"error":"...","exitCode":N}`. Piped text output is plain ASCII.
-- Exit codes: 0 done · 1 error or cancelled · 2 invalid arguments or not a 3D file · 3 file not found · 4 conversion failed (in a batch the other files are still written).
-- The full command reference is the skill: `skills/contenta-cad/SKILL.md`.
+- Every command takes `--json` and prints one JSON object on stdout (logs go to stderr): `success`, `exitCode`, `error`, `warnings`, `errors` and `outputs`, plus the trial fields when they apply. Add `--progress` for one `{"type":"progress",...}` line per finished file before that object.
+- Exit codes: 0 done · 1 unexpected error · 2 invalid arguments · 3 input not found or unreadable · 4 some items failed (the others are written) · 5 nothing succeeded · 6 the licence or trial refused the run · 130 cancelled. The four ContentaSoft command lines share this table.
+- The skill (`skills/contenta-cad/SKILL.md`) tells the agent which commands to use.
+
+## Full CLI and MCP reference
+
+Every `cadconvert` command, option and exit code, the JSON output and every MCP tool with its parameters:
+
+- Command line: https://github.com/brunojanvier77/ContentaSoft/blob/main/cad-converter/cli.md
+- MCP server: https://github.com/brunojanvier77/ContentaSoft/blob/main/cad-converter/mcp-server.md
 
 ## Privacy
 
