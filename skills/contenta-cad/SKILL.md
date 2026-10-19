@@ -1,7 +1,7 @@
 ---
 name: contenta-cad
 description: Convert 3D CAD and mesh files with the 3D CAD Converter CLI (cadconvert). Use when the user asks to convert STEP, IGES or BREP to STL, OBJ, 3MF, glTF/GLB, FBX, PLY or other formats, convert between mesh formats (including USD/USDZ and VRML input), change units, control mesh quality for 3D printing, reduce the polygon count of a mesh, set the up axis for game engines, inspect a 3D file, or batch-convert or watch a folder of CAD files.
-allowed-tools: Bash(cadconvert:*)
+allowed-tools: Bash(cadconvert *) PowerShell(cadconvert *) Bash(cadconvert.exe *) PowerShell(cadconvert.exe *)
 ---
 
 # 3D CAD Converter
@@ -9,6 +9,13 @@ allowed-tools: Bash(cadconvert:*)
 Use the `cadconvert` CLI (3D CAD Converter 1.0.32+, Windows). Default per-user install: `%LOCALAPPDATA%\Programs\CadConverter\cadconvert.exe`, on the user PATH. Check with `cadconvert --version` (it prints the build id after a `+`). Full reference: https://github.com/brunojanvier77/ContentaSoft/blob/main/cad-converter/cli.md
 
 Every command accepts `--json` (one JSON object on stdout), `--plain`, `--quiet`, `-v/--verbose` and `--progress`. A conversion that writes several part files lists the extra ones in `additionalOutputs`; side files such as `.bin` or `.mtl` are not listed. When stdout is not a terminal (or with `--plain`) the text output is plain `Key: Value` lines and ASCII tables, and every number uses a `.` decimal point with no thousands separator.
+
+## Running commands
+
+- **MCP first:** when this app's MCP tools are connected (`convert_cad`, `get_file_info`, `list_formats` ...), use them for what they cover and the command line for the rest. They take paths and options as named fields, so there is no quoting or wildcard to get wrong. Give them full paths.
+- **One command per call:** run one `cadconvert` command at a time, with no `cd`, `&&`, `;`, pipes, loops, variables or `$(...)`. Anything else on the line can stop the run to ask the user for approval, and the CLI already handles folders and reports its results (below).
+- **Let the CLI do the folder work:** `cadconvert batch <folder> -o <output-folder>` converts every 3D file in the folder and its subfolders (`--include "*.step"` picks the files, `--skip-existing` makes a re-run do only what is missing), and both `batch` and `convert -o` create the output folder when it is missing.
+- **Read the results, don't measure them:** every `--json` result lists the written files in `outputs`; `convert`, and each `files` row of a `batch`, add `outputBytes` and `durationMs`. No `stat`, `date` or `Get-Item` wrapper is needed. To see what is in a folder, use the agent's own file tools.
 
 ## Commands
 
