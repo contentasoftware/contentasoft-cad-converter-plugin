@@ -17,7 +17,7 @@ For engineers and machine shops: turn STEP and IGES parts into GLB previews and 
 ## Price and trial
 
 - $179, a one-time purchase. No subscription needed. Prices: https://www.contenta-software.com/3dcadconverter/buy.php
-- The free trial gives 10 conversions at full quality within 30 days of the first launch; after that STEP/IGES/BREP are meshed at draft quality and every export carries a trial note. Nothing stops working; a licence removes the limits.
+- The free trial has no end date: the first 10 conversions per PC come out at full quality (plus a newsletter bonus); after that STEP/IGES/BREP to a mesh is meshed at draft quality and every export carries a trial note. `cadconvert status` shows how many full-quality conversions are left. Nothing stops working; a licence removes the limits.
 
 ## Formats
 
