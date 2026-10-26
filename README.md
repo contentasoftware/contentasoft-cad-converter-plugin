@@ -1,5 +1,8 @@
 # 3D CAD Converter plugin
 
+**Windows 10/11 only.** There is no Mac or Linux version: on a Mac or Linux machine the plugin installs, but its
+server cannot start.
+
 Use **3D CAD Converter** from your AI agent on your Windows PC: converting STEP, IGES, STL, OBJ, FBX, glTF, 3MF and other 3D/CAD files. You ask in plain words and the
 agent does the work on files on your computer. It works with any agent that runs local MCP servers: Cursor,
 Claude Code, Codex, VS Code, Windsurf and others.
@@ -18,6 +21,8 @@ For engineers and machine shops: turn STEP and IGES parts into GLB previews and 
 
 - $179, a one-time purchase. No subscription needed. Prices: https://www.contenta-software.com/3dcadconverter/buy.php
 - The free trial has no end date: the first 10 conversions per PC come out at full quality (plus a newsletter bonus); after that STEP/IGES/BREP to a mesh is meshed at draft quality and every export carries a trial note. `cadconvert status` shows how many full-quality conversions are left. Nothing stops working; a licence removes the limits.
+- After buying, the licence key arrives by email. Enter it in 3D CAD Converter's Register page, or run
+  `cadconvert register <email> <key>` in a terminal. The key does not need to go through the chat.
 
 ## Formats
 

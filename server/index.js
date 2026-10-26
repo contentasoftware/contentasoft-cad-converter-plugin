@@ -124,8 +124,11 @@ function getStartedText(platform, state) {
     '',
     'To set it up:',
     `1. Download the free trial: ${withAttribution(app.downloadUrl)}`,
-    '2. Run the installer. It installs for the current user and needs no administrator rights.',
+    '2. Run the installer. It installs for the current user and needs no administrator rights. The setup file is small and downloads the app itself (up to about 250 MB); ' +
+      'if SmartScreen or an antivirus blocks it, or the download stalls, the same page has an offline installer.',
     '3. Restart the AI client or reconnect this MCP server. This server then starts the app\'s own MCP server with the tools above.',
+    '',
+    `After buying, the licence key arrives by email. The user enters it in the app's Register page, or runs ${app.exe.replace('.exe', '')} register <email> <key> in a terminal; the key does not need to go through this chat.`,
   ].join('\n');
 }
 
