@@ -59,7 +59,7 @@ Client-by-client instructions: https://www.npmjs.com/package/@contentasoft/cad-c
 
 ## What is included
 
-- **MCP server** `cad-converter` with the tools `convert_cad`, `detect_format`, `get_file_info`, `list_formats`, `get_license_status`. Each tool
+- **MCP server** `cad-converter` with the tools `convert_cad`, `detect_format`, `get_file_info`, `list_formats`, `get_license_status`, `batch_convert_cad`, `get_bom`, `register_license`. Each tool
   says whether it only reads files, writes new files, may overwrite files, or uses the internet.
 - **Skill** `contenta-cad`: how and when the agent should use those tools and the `cadconvert` command line.
 

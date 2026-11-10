@@ -19,6 +19,9 @@
     "detect_format",
     "get_file_info",
     "list_formats",
-    "get_license_status"
+    "get_license_status",
+    "batch_convert_cad",
+    "get_bom",
+    "register_license"
   ]
 }
