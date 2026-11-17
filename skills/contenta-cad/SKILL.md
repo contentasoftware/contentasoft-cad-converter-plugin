@@ -1,6 +1,6 @@
 ---
 name: contenta-cad
-description: Convert 3D CAD and mesh files with the 3D CAD Converter CLI (cadconvert). Use when the user asks to convert STEP, IGES or BREP to STL, OBJ, 3MF, glTF/GLB, FBX, PLY or other formats, convert between mesh formats (including USD/USDZ and VRML input), change units, control mesh quality for 3D printing, reduce the polygon count of a mesh, set the up axis for game engines, inspect a 3D file, or batch-convert or watch a folder of CAD files. Windows 10/11 only (no Mac or Linux version).
+description: Convert 3D CAD and mesh files with the 3D CAD Converter CLI (cadconvert). Use when the user asks to convert STEP, IGES or BREP to STL, OBJ, 3MF, glTF/GLB, FBX, PLY or other formats, convert between mesh formats (including USD/USDZ and VRML input), change units, control mesh quality for 3D printing, reduce the polygon count of a mesh, set the up axis for game engines, optimize glTF/GLB for the web and games (meshopt compression, KTX2 textures, LOD files), inspect a 3D file, or batch-convert or watch a folder of CAD files. Windows 10/11 only (no Mac or Linux version).
 allowed-tools: Bash(cadconvert *) PowerShell(cadconvert *) Bash(cadconvert.exe *) PowerShell(cadconvert.exe *) mcp__plugin_contentasoft-cad-converter_cad-converter
 ---
 
@@ -20,7 +20,7 @@ Every command accepts `--json` (one JSON object on stdout), `--plain`, `--quiet`
 ## Commands
 
 ```bash
-cadconvert convert <input> -o <output> [-f <fmt>] [--quality P|N] [--angular RAD] [--up-axis y|z|unchanged] [--decimate R] [--units mm|cm|in|m|ft] [--repair] [--binary true|false] [--max-size MB]
+cadconvert convert <input> -o <output> [-f <fmt>] [--preset web-game|3d-printing|visualization|engineering|mesh-review] [--quality P|N] [--angular RAD] [--up-axis y|z|unchanged] [--decimate R] [--units mm|cm|in|m|ft] [--repair] [--binary true|false] [--assembly preserve|merge] [--compress] [--max-size MB] [--textures keep|ktx2|webp] [--texture-max-size PX] [--lods 0.5,0.25] [--instancing] [--strict]
 cadconvert batch <dir> -o <outdir> [-f stl] [-r] [-w N] [--include "*.step"] [--exclude ...] [--report r.csv] [same conversion options]
 cadconvert watch <dir> -o <outdir> [-f stl] [-w N] [same conversion options]     # runs until Ctrl+C
 cadconvert info <file> --json
@@ -62,6 +62,20 @@ Sources that declare a unit are read at their true size, converted to mm, then w
 - `--repair` repairs STEP/IGES/BREP surfaces before meshing (broken edges and faces, small gaps). It has no effect on mesh sources (STL, OBJ, PLY ...).
 - `--decimate 0.25` (or `25%`) keeps about a quarter of the triangles. Mesh sources only: STL, OBJ, PLY, glTF/GLB, FBX, 3MF, Collada, OFF, VRML, X3D, AMF, DXF. STEP/IGES/BREP are not reduced; lower their `--quality` instead (draft is lightest). DWG and USD are not reduced. Meshes over 2,000,000 triangles are written unreduced.
 - `--max-size 5` (glTF/GLB only, MB): a file over it is written again with fewer triangles until it fits, down to 5% of its triangles. One that still does not fit is written at the smallest size and reported as over budget (exit 4).
+
+### Web and games: KTX2 textures, LOD files, instancing
+
+For a browser game or a web viewer, start from the preset (needs 3D CAD Converter 1.1.0 or later):
+
+    cadconvert convert truck.glb -o out\ --preset web-game --lods 50%,25% --strict --json
+
+- `--preset web-game` is GLB with meshopt compression and KTX2 textures up to 2048 px. KTX2 is the one texture format that stays compressed in GPU memory; the viewer needs a KTX2 transcoder and a meshopt decoder (three.js and Babylon.js have both). PNG, JPEG and WebP source textures all become KTX2.
+- A glTF or GLB source going to glTF or GLB keeps its animations, skins and material extensions. A unit change, `--up-axis` or `--repair` rebuilds the model and loses them; the result's `notes` say so.
+- `--lods 50%,25%` also writes `name.lod1.glb` and `name.lod2.glb`: geometry only, no textures. Each LOD line (and `lods` in `--json`) gives the share of triangles it kept; a mesh that cannot be simplified without visible damage keeps more than asked.
+- `--instancing` writes a repeated mesh once; node names are not kept. Not with `--assembly merge`.
+- `--strict` fails the file (exit code 5, or 4 in a batch) when something asked for could not be applied. Without it the file is written and `web.applied` is false.
+- `cadconvert info model.glb --json` lists each texture (size, format, bytes) and an estimate of GPU texture memory now and as KTX2. It reads compressed files too.
+- Other options: `--texture-mode auto|etc1s|uastc`, `--texture-quality 1..10`, `--texture-pow2`, `--quantize standard|fine|off`, `--compress-fallback`, `--keep-extras`.
 
 ## Formats
 
@@ -116,5 +130,5 @@ Same table in all four ContentaSoft CLIs: 0 OK · 1 unexpected error (a bug or a
 - To shrink a mesh file, use `--decimate`; to shrink a mesh made from STEP/IGES, use a coarser `--quality`.
 - STL has no colors or materials; the CLI says so. Use 3MF, OBJ or GLB when color matters.
 - glTF (`.gltf`) is JSON plus side files; GLB (`.glb`) is a single binary file and is easier to share.
-- MCP: paths must be absolute. `convert_cad` takes `input_path`, `output_path` or `output_dir`, `format`, `quality` (a preset or a linear deflection in mm, e.g. `"0.001"`), `angular` (radians), `up_axis` (`y|z|unchanged`), `decimate` (`0.25` or `"25%"`, mesh sources only), `max_size_mb`, `units`, `repair`, `binary`, `overwrite`, `skip_existing`. `get_file_info` matches `info`, `list_formats` matches `formats`.
+- MCP: paths must be absolute. `convert_cad` takes `input_path`, `output_path` or `output_dir`, `format`, `quality` (a preset or a linear deflection in mm, e.g. `"0.001"`), `angular` (radians), `up_axis` (`y|z|unchanged`), `decimate` (`0.25` or `"25%"`, mesh sources only), `max_size_mb`, `units`, `repair`, `binary`, `compress`, `assembly`, `textures`, `texture_mode`, `texture_quality`, `texture_max_size`, `texture_pow2`, `lods`, `instancing`, `quantize`, `compress_fallback`, `keep_extras`, `strict`, `preset`, `overwrite`, `skip_existing`. `get_file_info` matches `info`, `list_formats` matches `formats`.
 - Trial: 10 conversions at full quality (plus 10 more after the newsletter confirmation in the app), with no end date. After that nothing is blocked and nothing expires: STEP/IGES/BREP to a mesh format is meshed at `draft` whatever `--quality` says, and every export carries a trial note (FBX gets draft only). The CLI prints `Buy:` and a link; registering removes it. Before a batch, run `cadconvert status --json` (MCP: `get_license_status`) and read its `license` object: `state` (`Trial` or `Registered`), `freeFilesRemaining`, `nextOutput` (`clean` or `draft_quality`) and `afterFreeFiles`. When `state` is `Trial` and `nextOutput` is `draft_quality`, or `freeFilesRemaining` is smaller than the number of files, tell the user before you convert that the STEP/IGES/BREP parts past the free conversions will be meshed at Draft quality and every one of those exports will carry a trial note, and that a licence removes both: <https://www.contenta-software.com/3dcadconverter/buy.php>.
